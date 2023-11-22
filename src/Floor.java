@@ -14,6 +14,7 @@ class Floor {
     private Deque<Passenger> down; // Queue for passengers going down
     private int floorNumber; // The floor number
     private List<Integer> possibleDestinations; // List of possible destination floors for passengers
+    private Random random = new Random();
 
     /**
      * Constructor for the Floor class.
@@ -29,8 +30,8 @@ class Floor {
             this.down = new LinkedList<>();
             this.possibleDestinations = new LinkedList<>();
         } else {
-        	this.up = new ArrayDeque<>();
-            this.down = new ArrayDeque<>();
+        	this.up = new ArrayList<>();
+            this.down = new ArrayList<>();
             this.possibleDestinations = new ArrayList<>();
         }  
         // Populate the list of possible destination floors for passenger appears in this floor
@@ -66,7 +67,6 @@ class Floor {
      * @return A randomly generated passenger.
      */
     public Passenger generatePassenger() {
-        Random random = new Random();
         int randomIndex = random.nextInt(this.possibleDestinations.size());
         int destination = this.possibleDestinations.get(randomIndex);
         return new Passenger(floorNumber, destination);

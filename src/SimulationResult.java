@@ -28,7 +28,7 @@ public class SimulationResult {
      */
     public void addPassenger(int conveyanceTime) {
     	if (conveyanceTime <= 0) {
-    		System.out.println("Invalid conveyance Time");
+    		System.out.println("Invalid conveyance time");
     		return;
     	}
         // Update total passengers and total conveyance time

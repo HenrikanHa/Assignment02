@@ -15,6 +15,8 @@ public class ElevatorSimulation {
     private int duration; // Duration of the simulation in ticks
     private double passengerProbability; // Probability of a new passenger arriving at a floor in each tick
     private SimulationResult result = new SimulationResult(); // Result object to store simulation results
+	private Random random = new Random();
+
 
     /**
      * Constructor for the ElevatorSimulation class.
@@ -22,7 +24,7 @@ public class ElevatorSimulation {
      */
     public ElevatorSimulation(Properties properties) {
     	// Determine whether to use LinkedList or ArrayList based on the "structures" property
-    	boolean isLinkedList = properties.getProperty("structures") == "linked";
+    	boolean isLinkedList = properties.getProperty("structures").equals("linked");
     	if (isLinkedList) {
     		this.elevators = new LinkedList<>();
             this.floors = new LinkedList<>();
@@ -65,8 +67,7 @@ public class ElevatorSimulation {
        
         		// Check if there is passenger based on passenger probability given in property file
         		// if passenger arrives, then request elevator and wait in that floor
-        		double rand = Math.random();
-        		if (rand <= this.passengerProbability) {
+        		if (random.nextDouble() <= this.passengerProbability) {
         			// Create a new passenger, 
         			Passenger newPassenger = floor.generatePassenger();
             		// Add passenger to correct queue
@@ -120,17 +121,13 @@ public class ElevatorSimulation {
      * @param queue The passenger queue to process.
      */
     private void processQueue(Queue<Passenger> queue) {
-        if (!queue.isEmpty()) {
-            Iterator<Passenger> iterator = queue.iterator();
-            while (iterator.hasNext()) {
-                Passenger passenger = iterator.next();
-                for (Elevator elevator: this.elevators) {
-        			if (elevator.passengerRequests(passenger)) {
-        				// Stop requesting elevators after a successful request is accepted
-        				break;
-        			}
-    			}
-            }
-        }
+		for (Passenger passenger : queue) {
+			for (Elevator elevator : this.elevators) {
+				if (elevator.passengerRequests(passenger)) {
+					// Stop requesting elevators after a successful request is accepted
+					break;
+				}
+			}
+		}
     }
 }

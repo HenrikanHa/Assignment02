@@ -71,7 +71,7 @@ public class PropertyReader {
      */
     private static void validateAndAdjustProperties(Properties properties) {
         // Validate and adjust properties
-    	validateAndAdjusStructureProperty(properties, "structures", STRUCTURES);
+    	validateAndAdjustStructureProperty(properties, "structures", STRUCTURES);
     	// If floors property is less than 2, set it to 32
         validateAndAdjustIntProperty(properties, "floors", FLOOR, 2);
         // If elevators property is less than 1, set it to 1
@@ -90,7 +90,7 @@ public class PropertyReader {
      * @param key           The key of the property to be validated
      * @param defaultValue  The default value to be set if the property is invalid
      */
-    private static void validateAndAdjusStructureProperty(Properties properties, String key, String defaultValue) {
+    private static void validateAndAdjustStructureProperty(Properties properties, String key, String defaultValue) {
     	String structures = properties.getProperty("structures");
         if (!structures.equals("array") && !structures.equals("linked")) {
         	// If structures property is invalid, set it to "linked"

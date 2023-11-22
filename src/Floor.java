@@ -1,5 +1,4 @@
 import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,8 +9,8 @@ import java.util.Random;
  * Represents a floor in a building with up and down queues for passengers.
  */
 class Floor {
-    private Deque<Passenger> up; // Queue for passengers going up
-    private Deque<Passenger> down; // Queue for passengers going down
+    private Queue<Passenger> up; // Queue for passengers going up
+    private Queue<Passenger> down; // Queue for passengers going down
     private int floorNumber; // The floor number
     private List<Integer> possibleDestinations; // List of possible destination floors for passengers
     private Random random = new Random();
@@ -30,8 +29,8 @@ class Floor {
             this.down = new LinkedList<>();
             this.possibleDestinations = new LinkedList<>();
         } else {
-        	this.up = new ArrayList<>();
-            this.down = new ArrayList<>();
+        	this.up = new ArrayDeque<>();
+            this.down = new ArrayDeque<>();
             this.possibleDestinations = new ArrayList<>();
         }  
         // Populate the list of possible destination floors for passenger appears in this floor
@@ -118,12 +117,12 @@ class Floor {
     }
 
     // Appends queue information to the StringBuilder
-    private void appendQueueInfo(Queue<Passenger> queue, StringBuilder result) {
+    private void appendQueueInfo(Queue<Passenger> passengerQueue, StringBuilder result) {
         result.append("[ ");
-        for (Passenger passenger : queue) {
+        for (Passenger passenger : passengerQueue) {
             result.append(passenger.toString()).append(", ");
         }
-        if (!queue.isEmpty()) {
+        if (!passengerQueue.isEmpty()) {
             result.setLength(result.length() - 2);  // Remove the trailing comma and space
         }
         result.append(" ]\n");

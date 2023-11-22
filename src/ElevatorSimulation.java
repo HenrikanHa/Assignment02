@@ -1,9 +1,9 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Queue;
+import java.util.Random;
 
 /**
  * Represents a simulation of elevators and passengers in a building.
@@ -16,7 +16,6 @@ public class ElevatorSimulation {
     private double passengerProbability; // Probability of a new passenger arriving at a floor in each tick
     private SimulationResult result = new SimulationResult(); // Result object to store simulation results
 	private Random random = new Random();
-
 
     /**
      * Constructor for the ElevatorSimulation class.
@@ -120,8 +119,8 @@ public class ElevatorSimulation {
      * Process the given passenger queue by requesting elevators based on passenger requests.
      * @param queue The passenger queue to process.
      */
-    private void processQueue(Queue<Passenger> queue) {
-		for (Passenger passenger : queue) {
+    private void processQueue(Queue<Passenger> passengerQueue) {
+		for (Passenger passenger : passengerQueue) {
 			for (Elevator elevator : this.elevators) {
 				if (elevator.passengerRequests(passenger)) {
 					// Stop requesting elevators after a successful request is accepted

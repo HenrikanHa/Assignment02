@@ -71,7 +71,7 @@ public class PropertyReader {
      * @param properties The properties object to be validated and adjusted
      */
     private static void validateAndAdjustProperties(Properties properties) {
-        // Validate and adjust properties
+        // Validate and adjust structures properties
     	validateAndAdjustStructureProperty(properties, "structures", STRUCTURES);
     	// If floors property is less than 2, set it to 32
         validateAndAdjustIntProperty(properties, "floors", FLOOR, 2);
@@ -134,7 +134,7 @@ public class PropertyReader {
                 properties.setProperty(key, String.valueOf(defaultValue));
             }
         } catch (NumberFormatException e) {
-            // Handle the case where the property is not a valid integer
+            // Handle the case where the property is not a valid value
             properties.setProperty(key, String.valueOf(defaultValue));
         }
     }

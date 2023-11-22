@@ -66,7 +66,6 @@ public class ElevatorSimulation {
         		}
        
         		// Check if there is passenger based on passenger probability given in property file
-        		// if passenger arrives, then request elevator and wait in that floor
         		if (random.nextDouble() <= this.passengerProbability) {
         			// Create a new passenger, 
         			Passenger newPassenger = floor.generatePassenger();
@@ -86,14 +85,14 @@ public class ElevatorSimulation {
 
     			        // Load passengers into the elevator until it's full
     			        while (!queueToLoad.isEmpty() && elevator.load(queueToLoad.peek())) {
-    			            // Assuming that load() returns true if the passenger is successfully loaded
+    			            // removed successfully loaded the passenger from floor queue
     			            queueToLoad.poll();
     			        }
     			    }
         		}
         	}
         	
-        	// Process queues for any remaining passengers
+        	// Process request of each passenger queues for any remaining passengers
         	for (Floor floor: this.floors) {
         		//if there is any passenger left to pickup, request elevator
         		processQueue(floor.getUpQueue());
@@ -104,10 +103,8 @@ public class ElevatorSimulation {
 			for (Elevator elevator: this.elevators) {
     			elevator.travel();
     		} 
-        	
             tick++;
         }
-        
         // Calculate simulation statistics
         result.calculateStatistics();
     }

@@ -63,7 +63,7 @@ class Floor {
 
     /**
      * Generates a passenger with a random destination floor.
-     * @return A randomly generated passenger.
+     * @return A new generated passenger.
      */
     public Passenger generatePassenger() {
         int randomIndex = random.nextInt(this.possibleDestinations.size());

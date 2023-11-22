@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 class Elevator {
     private PriorityQueue<Passenger> upPassengers; // Holding going up passengers
     private PriorityQueue<Passenger> downPassengers; //Holding doing down passengers
-    private int currentFloor; 
+    private int currentFloor; // current floor
     private int maxFloor; // the highest floor
     private int capacity; // elevator capacity 
     private boolean up; // elevator direction
@@ -22,12 +22,12 @@ class Elevator {
      */
     public Elevator(int maxFloor, int capacity) {
         this.upPassengers = new PriorityQueue<>(); // passenger in the elevator
-        this.downPassengers = new PriorityQueue<>((a, b) -> b.compareTo(a)); 
+        this.downPassengers = new PriorityQueue<>((a, b) -> b.compareTo(a)); // max priority queue
         this.currentFloor = 1; //floor that elevator starts
         this.up = true; //direction of elevator
         this.capacity = capacity;
         this.upDestination = new PriorityQueue<>();
-        this.downDestination = new PriorityQueue<>((a, b) -> Integer.compare(b, a));
+        this.downDestination = new PriorityQueue<>((a, b) -> Integer.compare(b, a)); // max priority queue
         this.maxFloor = maxFloor;
     }
 
@@ -57,7 +57,7 @@ class Elevator {
      * @param result       The simulation result to be updated.
      */
     private void unloadPassengers(PriorityQueue<Passenger> passengers, int currentFloor, int currentTick, SimulationResult result) {
-    	// If the elevator is at the current floor, remove all passengers whose destination floor is the same as the current floor, where the elevator stops.
+    	// If the elevator is at the current floor, remove all passengers whose destination floor is the same as the current floor.
         while (!passengers.isEmpty() && passengers.peek().getDestinationFloor() == this.currentFloor && this.currentFloor == currentFloor) {
             passengers.peek().setEndTime(currentTick);
             result.addPassenger(passengers.peek().getConveyanceTime());
@@ -83,7 +83,7 @@ class Elevator {
      * @return True if the elevator is available to load the passenger, false otherwise.
      */
     private boolean isAvailableToLoad(int floor, boolean upRequest) {
-    	if (upPassengers.isEmpty() && downPassengers.isEmpty()) { // elevator is idle
+    	if (upPassengers.isEmpty() && downPassengers.isEmpty()) { // if elevator has no passengers
     		return true;
     	}
         if (upRequest) {
@@ -130,7 +130,7 @@ class Elevator {
      */
     private boolean isAvailableToRequest(int floor, boolean upRequest) {
     	// check if the elevator is idle
-    	if (upPassengers.isEmpty() && downPassengers.isEmpty() && upDestination.isEmpty() && downDestination.isEmpty())
+    	if (!isRunning())
     		return true;
         // check if there is capacity and same direction to pick up passenger
         if ((upRequest && upPassengers.size() < capacity && up == upRequest) 
@@ -179,7 +179,6 @@ class Elevator {
     	// during 1 tick, An elevator may travel between no more than 5 floors 
     	if (this.isRunning()) { // only travel when there is passenger or there is request for elevator
     		int floorNeedToTravel = MAX_FLOORS_PER_TICK;
-    		
 
             // Find the next floor to travel to
             int nextFloor = findNextDestination();
@@ -192,8 +191,6 @@ class Elevator {
             } else {
                 this.currentFloor = Math.max(this.currentFloor - floorNeedToTravel, 1);
             }
-
-
     	}
     	
     }
@@ -202,7 +199,6 @@ class Elevator {
     	// if any of this queue is not empty, elevator is in running state
         return !(upPassengers.isEmpty() && downPassengers.isEmpty() && upDestination.isEmpty() && downDestination.isEmpty());
     }
-
 
     private int findNextDestination() { // Finds the next destination floor based on remaining passenger requests and current state.
         // Determine the next floor based on the remaining passenger requests

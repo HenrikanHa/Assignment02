@@ -59,7 +59,7 @@ public class SimulationResult {
         double averageTime = (double) totalConveyanceTime / totalPassengers;
 
         // Print statistics
-        System.out.println("Average Time: " + averageTime);
+        System.out.printf("Average Time: %.2f\n", averageTime);
         System.out.println("Longest Time: " + longestTime);
         System.out.println("Shortest Time: " + shortestTime);
     }

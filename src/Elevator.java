@@ -83,7 +83,7 @@ class Elevator {
      * @return True if the elevator is available to load the passenger, false otherwise.
      */
     private boolean isAvailableToLoad(int floor, boolean upRequest) {
-    	if (upPassengers.isEmpty() && downPassengers.isEmpty()) { // if elevator has no passengers
+    	if (!isRunning()) { // if elevator is idle
     		return true;
     	}
         if (upRequest) {

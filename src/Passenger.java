@@ -6,12 +6,14 @@ import java.util.UUID;
  * start time, end time, and direction (up or down).
  */
 class Passenger implements Comparable<Passenger> {
+    // The starting and destination floors of the passenger.
     private int startFloor;
     private int destinationFloor;
+    // The time the passenger arrives at a floor and exits the elevator.
     private int startTime = 0;
     private int endTime = 0;
-    private boolean up;
-    private UUID uuid;
+    private boolean up; // Boolean indicating if the passenger is going up.
+    private UUID uuid; // Unique identifier for the passenger.
     
     /**
      * Constructs a new Passenger object with the given starting and destination floors.

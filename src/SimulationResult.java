@@ -63,5 +63,4 @@ public class SimulationResult {
         System.out.println("Longest Time: " + longestTime);
         System.out.println("Shortest Time: " + shortestTime);
     }
-
 }

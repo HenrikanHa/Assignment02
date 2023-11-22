@@ -13,7 +13,7 @@ class Floor {
     private Queue<Passenger> down; // Queue for passengers going down
     private int floorNumber; // The floor number
     private List<Integer> possibleDestinations; // List of possible destination floors for passengers
-    private Random random = new Random();
+    private Random random = new Random(); // Randomize passengers’ destinations
 
     /**
      * Constructor for the Floor class.
@@ -62,7 +62,7 @@ class Floor {
     }
 
     /**
-     * Generates a random passenger with a destination floor.
+     * Generates a passenger with a random destination floor.
      * @return A randomly generated passenger.
      */
     public Passenger generatePassenger() {

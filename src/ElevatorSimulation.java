@@ -9,6 +9,7 @@ import java.util.Random;
  * Represents a simulation of elevators and passengers in a building.
  */
 public class ElevatorSimulation {
+	// Lists of elevators and floors.
     private List<Elevator> elevators;
     private List<Floor> floors;
     private int tick; // Simulation time in ticks
@@ -72,13 +73,11 @@ public class ElevatorSimulation {
             		// Add passenger to correct queue
         			floor.load(newPassenger);		
         			newPassenger.setStartTime(tick);
-        			
         		}
         		
         		// Load passenger in up/down queue into elevator    	
         		// Check if there is any elevator that stops at this floor
     			// Load customer into available elevator with same direction
-        		
     			for (Elevator elevator: this.elevators) {
     				if (elevator.getCurrentFloor() == floorNumber) {
     			        boolean elevatorDirection = elevator.isRunning() ? elevator.getElevatorDirection() : !floor.getUpQueue().isEmpty();
@@ -91,9 +90,7 @@ public class ElevatorSimulation {
     			            queueToLoad.poll();
     			        }
     			    }
-
         		}
-    				
         	}
         	
         	// Process queues for any remaining passengers

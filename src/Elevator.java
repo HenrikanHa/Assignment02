@@ -193,6 +193,7 @@ class Elevator {
                 this.currentFloor = Math.max(this.currentFloor - floorNeedToTravel, 1);
             }
 
+
     	}
     	
     }
@@ -205,16 +206,7 @@ class Elevator {
 
     private int findNextDestination() { // Finds the next destination floor based on remaining passenger requests and current state.
         // Determine the next floor based on the remaining passenger requests
-        if (!upPassengers.isEmpty() || !downPassengers.isEmpty()) {
-            int nextFloor = up ? upDestination.peek() : downDestination.peek();
-            if (up && !upPassengers.isEmpty()) {
-                nextFloor = Math.min(nextFloor, upPassengers.peek().getDestinationFloor());
-            }
-            if (!up && !downPassengers.isEmpty()) {
-                nextFloor = Math.max(nextFloor, downPassengers.peek().getDestinationFloor());
-            }
-            return nextFloor;
-        } else if (up && !upDestination.isEmpty()) {
+    	if (up && !upDestination.isEmpty()) {
             return upDestination.peek();
         } else if (!up && !downDestination.isEmpty()) {
             return downDestination.peek();

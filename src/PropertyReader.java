@@ -108,8 +108,13 @@ public class PropertyReader {
      * @param minValue      The minimum allowed value for the property
      */
     private static void validateAndAdjustIntProperty(Properties properties, String key, int defaultValue, int minValue) {
-        int value = Integer.parseInt(properties.getProperty(key, String.valueOf(defaultValue)));
-        if (value < minValue) {
+        try {
+            int value = Integer.parseInt(properties.getProperty(key, String.valueOf(defaultValue)));
+            if (value < minValue) {
+                properties.setProperty(key, String.valueOf(defaultValue));
+            }
+        } catch (NumberFormatException e) {
+            // Handle the case where the property is not a valid integer
             properties.setProperty(key, String.valueOf(defaultValue));
         }
     }
@@ -123,8 +128,13 @@ public class PropertyReader {
      * @param maxValue      The maximum allowed value for the property
      */
     private static void validateAndAdjustDoubleProperty(Properties properties, String key, double defaultValue, double minValue, double maxValue) {
-        double value = Double.parseDouble(properties.getProperty(key, String.valueOf(defaultValue)));
-        if (value <= minValue || value >= maxValue) {
+        try {
+            double value = Double.parseDouble(properties.getProperty(key, String.valueOf(defaultValue)));
+            if (value <= minValue || value >= maxValue) {
+                properties.setProperty(key, String.valueOf(defaultValue));
+            }
+        } catch (NumberFormatException e) {
+            // Handle the case where the property is not a valid integer
             properties.setProperty(key, String.valueOf(defaultValue));
         }
     }
